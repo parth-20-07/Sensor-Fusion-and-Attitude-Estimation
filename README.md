@@ -42,21 +42,21 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
   
     The IMU Data is of the form:
     
-    $$
-    \begin{bmatrix}
-      a_{x} && a_{y} && a_{z} && \omega_{z} && \omega_{x} && \omega_{y}
-    \end{bmatrix}^{T}
-    $$
+$$
+\begin{bmatrix}
+  a_{x} && a_{y} && a_{z} && \omega_{z} && \omega_{x} && \omega_{y}
+\end{bmatrix}^{T}
+$$
 
   The Vicon Data is stored in the form of a 3x3 Rotation Matrix, denoting `Z-Y-X` Euler Angles for orientation, and should be considered as ground truth for testing.
 
 2. **Convert to SI Units**: We need to convert the Accelerometer and Gyroscope Data from Raw Values to SI Units using the following formulae:
   
-    $$
-    \begin{equation}
-      \tilde{a_{x}} = \frac{a_{x} + b_{a,x}}{s_{x}}
-    \end{equation}
-    $$
+$$
+\begin{equation}
+  \tilde{a_{x}} = \frac{a_{x} + b_{a,x}}{s_{x}}
+\end{equation}
+$$
 
     where, 
     - $\tilde{a_{x}}$ denotes acceleration in physical values
@@ -65,11 +65,11 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
     - $s_{x}$ denotes scale factor
 
   
-    $$
-    \begin{equation}
-      \tilde{\omega_{x}} = \frac{3300}{1023} * \frac{\pi}{180} * 0.3 * (\omega - b_{g})
-    \end{equation}
-    $$
+$$
+\begin{equation}
+  \tilde{\omega_{x}} = \frac{3300}{1023} * \frac{\pi}{180} * 0.3 * (\omega - b_{g})
+\end{equation}
+$$
 
     where, 
     - $\tilde{\omega_{x}}$ denotes angular velocity in physical values
@@ -78,41 +78,41 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
 
     We also use this stage to convert the Vicon Data from the Rotation Matrix of `ZYX` format to Euler Angles using the following conversion:
 
-    $$
-    R_{zyx} =
-    \begin{bmatrix}
-    \cos{z}\cos{y} &&
-    \cos{z}\sin{y}\sin{x} - \cos{x}\sin{z} &&
-    \sin{z}\sin{x} + \cos{z}\cos{x}\sin{y} \\
+$$
+R_{zyx} =
+\begin{bmatrix}
+\cos{z}\cos{y} &&
+\cos{z}\sin{y}\sin{x} - \cos{x}\sin{z} &&
+\sin{z}\sin{x} + \cos{z}\cos{x}\sin{y} \\
 
-    \cos{y}\sin{z} &&
-    \cos{z}\cos{y}\cos{x} + \sin{z}\sin{y}\sin{x} &&
-    \cos{x}\sin{z}\sin{y} - \cos{z}\sin{x} \\
+\cos{y}\sin{z} &&
+\cos{z}\cos{y}\cos{x} + \sin{z}\sin{y}\sin{x} &&
+\cos{x}\sin{z}\sin{y} - \cos{z}\sin{x} \\
 
-    -\sin{y} &&
-    \cos{y}\sin{x} &&
-    \cos{y}\cos{x}
-    \end{bmatrix}
-    $$
+-\sin{y} &&
+\cos{y}\sin{x} &&
+\cos{y}\cos{x}
+\end{bmatrix}
+$$
 
-    which gives us:
-    $$
-    \begin{equation}
-      \theta_{y} = \arcsin(-R(3,1))
-    \end{equation}
-    $$
+which gives us:
+$$
+\begin{equation}
+  \theta_{y} = \arcsin(-R(3,1))
+\end{equation}
+$$
 
-    $$
-    \begin{equation}
-      \theta_{x} = \arccos(\frac{R(3,3)}{\cos{\theta_{y}}})
-    \end{equation}
-    $$
+$$
+\begin{equation}
+  \theta_{x} = \arccos(\frac{R(3,3)}{\cos{\theta_{y}}})
+\end{equation}
+$$
 
-    $$
-    \begin{equation}
-      \theta_{z} = \arcsin(\frac{R(1,1)}{\cos{\theta_{y}}})
-    \end{equation}
-    $$
+$$
+\begin{equation}
+  \theta_{z} = \arcsin(\frac{R(1,1)}{\cos{\theta_{y}}})
+\end{equation}
+$$
 
 3. **Data Alignment**: Align the IMU Time Stamps with the Vicon stamps. Here, Vicon Time Stamps are considered as true time stamps to which the IMU Data is aligned. Acceleration Data is interpolated using `Linear Interpolation (LERP)` and the Gyroscope Data is aligned using `Spherical Interpolation (SLERP)`
 
@@ -121,11 +121,11 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
 
       This is done by modeling the gyroscope with noise and bias in the form:
 
-      $$
-        \begin{equation}
-          \omega = \hat{\omega} + b_{g} + n_{g}
-        \end{equation}
-      $$
+  $$
+    \begin{equation}
+      \omega = \hat{\omega} + b_{g} + n_{g}
+    \end{equation}
+  $$
 
       where,
       - $\omega$ is the noise and bias affected gyroscope value we have from IMU
@@ -148,11 +148,11 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
 
       This is done by modeling the accelerometer with noise and bias in the form:
 
-      $$
-        \begin{equation}
-          a = (\hat{a}-g) + b_{a} + n_{a}
-        \end{equation}
-      $$
+$$
+  \begin{equation}
+    a = (\hat{a}-g) + b_{a} + n_{a}
+  \end{equation}
+$$
 
       where,
       - $a$ is the noise and bias-affected accelerometer value we have from IMU
@@ -162,33 +162,33 @@ The goal is to estimate the 3D orientation using data from a 6-DoF IMU sensor (3
 
       Using the ideal value of accelerations, we find the rotation at each step as follows:
 
-      $$
-      \begin{equation}
-        \theta_{x} = \arctan(\frac{a_{y}}{\sqrt{{a_{x}}^{2} + {a_{z}}^{2}}})
-      \end{equation}
-      $$
+$$
+\begin{equation}
+  \theta_{x} = \arctan(\frac{a_{y}}{\sqrt{{a_{x}}^{2} + {a_{z}}^{2}}})
+\end{equation}
+$$
 
-      $$
-      \begin{equation}
-        \theta_{y} = \arctan(\frac{-a_{x}}{\sqrt{{a_{y}}^{2} + {a_{z}}^{2}}})
-      \end{equation}
-      $$
+$$
+\begin{equation}
+  \theta_{y} = \arctan(\frac{-a_{x}}{\sqrt{{a_{y}}^{2} + {a_{z}}^{2}}})
+\end{equation}
+$$
 
-      $$
-      \begin{equation}
-        \theta_{z} = \arctan(\frac{a_{y}}{a_{x}})
-      \end{equation}
-      $$
+$$
+\begin{equation}
+  \theta_{z} = \arctan(\frac{a_{y}}{a_{x}})
+\end{equation}
+$$
 
    - **Complementary Filter**: Fuse gyro and accelerometer data using a simple complementary filter using the fusion factor $\alpha$.
 
       This is implemented based on the accelerometer and gyroscope values we have. At each time stamp, a portion of the Accelerometer and Gyroscope is used to find the final state as follows:
 
-      $$
-      \begin{equation}
-        \hat{x_{t}} = (1-\alpha)*x_{t,g} + \alpha*x_{t,a}
-      \end{equation}
-      $$
+$$
+\begin{equation}
+  \hat{x_{t}} = (1-\alpha)*x_{t,g} + \alpha*x_{t,a}
+\end{equation}
+$$
 
       where,
       - $\alpha$ is the fusion factor
