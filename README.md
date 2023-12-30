@@ -58,11 +58,11 @@ $$
 \end{equation}
 $$
 
-    where, 
-    - $\tilde{a_{x}}$ denotes acceleration in physical values
-    - $a_{x}$ denotes acceleration in raw values
-    - $b_{a,x}$ denotes bias factor
-    - $s_{x}$ denotes scale factor
+where, 
+- $\tilde{a_{x}}$ denotes acceleration in physical values
+- $a_{x}$ denotes acceleration in raw values
+- $b_{a,x}$ denotes bias factor
+- $s_{x}$ denotes scale factor
 
   
 $$
@@ -71,27 +71,27 @@ $$
 \end{equation}
 $$
 
-    where, 
-    - $\tilde{\omega_{x}}$ denotes angular velocity in physical values
-    - $\omega_{x}$ denotes angular velocity in raw values
-    - $b_{g}$ denotes the bias factor (calculated as the average of the first few 100 values assuming IMU is at rest)
+where, 
+- $\tilde{\omega_{x}}$ denotes angular velocity in physical values
+- $\omega_{x}$ denotes angular velocity in raw values
+- $b_{g}$ denotes the bias factor (calculated as the average of the first few 100 values assuming IMU is at rest)
 
-    We also use this stage to convert the Vicon Data from the Rotation Matrix of `ZYX` format to Euler Angles using the following conversion:
+We also use this stage to convert the Vicon Data from the Rotation Matrix of `ZYX` format to Euler Angles using the following conversion:
 
 $$
 R_{zyx} =
 \begin{bmatrix}
-\cos{z}\cos{y} &&
-\cos{z}\sin{y}\sin{x} - \cos{x}\sin{z} &&
-\sin{z}\sin{x} + \cos{z}\cos{x}\sin{y} \\
+  \cos{z}\cos{y} &&
+  \cos{z}\sin{y}\sin{x} - \cos{x}\sin{z} &&
+  \sin{z}\sin{x} + \cos{z}\cos{x}\sin{y} \\
 
-\cos{y}\sin{z} &&
-\cos{z}\cos{y}\cos{x} + \sin{z}\sin{y}\sin{x} &&
-\cos{x}\sin{z}\sin{y} - \cos{z}\sin{x} \\
+  \cos{y}\sin{z} &&
+  \cos{z}\cos{y}\cos{x} + \sin{z}\sin{y}\sin{x} &&
+  \cos{x}\sin{z}\sin{y} - \cos{z}\sin{x} \\
 
--\sin{y} &&
-\cos{y}\sin{x} &&
-\cos{y}\cos{x}
+  -\sin{y} &&
+  \cos{y}\sin{x} &&
+  \cos{y}\cos{x}
 \end{bmatrix}
 $$
 
@@ -121,28 +121,28 @@ $$
 
       This is done by modeling the gyroscope with noise and bias in the form:
 
-  $$
-    \begin{equation}
-      \omega = \hat{\omega} + b_{g} + n_{g}
-    \end{equation}
-  $$
+$$
+  \begin{equation}
+    \omega = \hat{\omega} + b_{g} + n_{g}
+  \end{equation}
+$$
 
-      where,
-      - $\omega$ is the noise and bias affected gyroscope value we have from IMU
-      - $\hat{\omega}$ is the ideal value we want to read
-      - $b_{g}$ is a bias that is calculated using the first few 100 values when at rest
-      - $n_{g}$ is a modelled white gaussian noise
+where,
+- $\omega$ is the noise and bias affected gyroscope value we have from IMU
+- $\hat{\omega}$ is the ideal value we want to read
+- $b_{g}$ is a bias that is calculated using the first few 100 values when at rest
+- $n_{g}$ is a modelled white gaussian noise
 
-      Using the ideal value we find at each timestamp, we do manual integration as follows:
+Using the ideal value we find at each timestamp, we do manual integration as follows:
 
-      ```py
-      orientation[0] = viconInitialPose
-      for i in len(timeStampList): # Starting i from 1
-        omegaHat = omega - bg- ng
-        dt = timeStampList[i] - timeStampList[i-1]
-        dTheta = omegaHat * dt
-        orientation[i] = orientation[i-1] + dTheta
-      ```
+```py
+orientation[0] = viconInitialPose
+for i in len(timeStampList): # Starting i from 1
+  omegaHat = omega - bg- ng
+  dt = timeStampList[i] - timeStampList[i-1]
+  dTheta = omegaHat * dt
+  orientation[i] = orientation[i-1] + dTheta
+```
 
    - **Accelerometer-Based Orientation**: Estimate orientation using only accelerometer data, under the assumption that the IMU is only rotating.
 
@@ -154,13 +154,13 @@ $$
   \end{equation}
 $$
 
-      where,
-      - $a$ is the noise and bias-affected accelerometer value we have from IMU
-      - $\hat{a}$ is the ideal value we want to read
-      - $b_{a}$ is a bias that is calculated using the first few 100 values when at rest
-      - $n_{a}$ is a modelled white gaussian noise
+where,
+- $a$ is the noise and bias-affected accelerometer value we have from IMU
+- $\hat{a}$ is the ideal value we want to read
+- $b_{a}$ is a bias that is calculated using the first few 100 values when at rest
+- $n_{a}$ is a modelled white gaussian noise
 
-      Using the ideal value of accelerations, we find the rotation at each step as follows:
+Using the ideal value of accelerations, we find the rotation at each step as follows:
 
 $$
 \begin{equation}
@@ -190,11 +190,11 @@ $$
 \end{equation}
 $$
 
-      where,
-      - $\alpha$ is the fusion factor
-      - $\hat{x_{t}}$ is the filtered state
-      - $x_{t,g}$ is the state from gyroscope pose
-      - $x_{t,a}$ is the state from accelerometer pose
+where,
+- $\alpha$ is the fusion factor
+- $\hat{x_{t}}$ is the filtered state
+- $x_{t,g}$ is the state from gyroscope pose
+- $x_{t,a}$ is the state from accelerometer pose
 
 ## Code Structure
 
