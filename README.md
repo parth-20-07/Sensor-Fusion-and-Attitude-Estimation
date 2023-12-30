@@ -77,10 +77,9 @@ where,
 - $b_{g}$ denotes the bias factor (calculated as the average of the first few 100 values assuming IMU is at rest)
 
 We also use this stage to convert the Vicon Data from the Rotation Matrix of `ZYX` format to Euler Angles using the following conversion:
-
+<!-- 
 $$
-R_{zyx} =
-\begin{bmatrix}
+\begin{matrix}
   \cos{z}\cos{y} &&
   \cos{z}\sin{y}\sin{x} - \cos{x}\sin{z} &&
   \sin{z}\sin{x} + \cos{z}\cos{x}\sin{y} \\
@@ -92,10 +91,11 @@ R_{zyx} =
   -\sin{y} &&
   \cos{y}\sin{x} &&
   \cos{y}\cos{x}
-\end{bmatrix}
+\end{matrix}
 $$
 
-which gives us:
+which gives us: -->
+
 $$
 \begin{equation}
   \theta_{y} = \arcsin(-R(3,1))
@@ -114,9 +114,9 @@ $$
 \end{equation}
 $$
 
-3. **Data Alignment**: Align the IMU Time Stamps with the Vicon stamps. Here, Vicon Time Stamps are considered as true time stamps to which the IMU Data is aligned. Acceleration Data is interpolated using `Linear Interpolation (LERP)` and the Gyroscope Data is aligned using `Spherical Interpolation (SLERP)`
+1. **Data Alignment**: Align the IMU Time Stamps with the Vicon stamps. Here, Vicon Time Stamps are considered as true time stamps to which the IMU Data is aligned. Acceleration Data is interpolated using `Linear Interpolation (LERP)` and the Gyroscope Data is aligned using `Spherical Interpolation (SLERP)`
 
-4. **Orientation Estimation**:
+2. **Orientation Estimation**:
    - **Gyroscope-Based Orientation**: Compute orientation using only gyro data, assuming initial orientation from Vicon.
 
       This is done by modeling the gyroscope with noise and bias in the form:
