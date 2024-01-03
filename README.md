@@ -205,6 +205,11 @@ The code is written in Python using a Python notebook. The Phase 1 implementatio
 
 ## Discussion
 
+While making the observations on the results I noticed a few things:
+- Gyroscope based Attitude Estimation gives us accurate results when the motion of IMU is slow but fails under rapid motion.
+- Accelerometer based Attitude Estimation gives us accurate results when the motion of IMU is rapid but fails under slower motions.
+- Complimentary Filter based Attitude Estimation gives us better results as it is fuse of Accelerometer and Gyroscope to find a spot where the results might not be perfect but close to ground truth.
+- IMU cannot measure yaw because Earth's gravity acts in the same direction as the Z-axis, which prevents the accelerometer from measuring rotation on the Z-axis.
 
 ## Results
 
