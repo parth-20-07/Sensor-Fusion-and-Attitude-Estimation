@@ -12,12 +12,6 @@
     - [Gyroscope-Based Orientation](#gyroscope-based-orientation)
     - [Accelerometer-Based Orientation](#accelerometer-based-orientation)
     - [Complementary Filter Orientation](#complementary-filter-orientation)
-- [Phase 2 - Waypoint Navigation and AprilTag Landing](#phase-2---waypoint-navigation-and-apriltag-landing)
-  - [Overview](#overview-1)
-  - [Methodology](#methodology-1)
-  - [Code Structure](#code-structure-1)
-  - [Discussion](#discussion-1)
-  - [Results](#results-1)
 - [References](#references)
 - [Designer Details](#designer-details)
 - [License](#license)
@@ -272,7 +266,7 @@ While making the observations on the results I noticed a few things:
 
 
 
-# Phase 2 - Waypoint Navigation and AprilTag Landing
+<!-- # Phase 2 - Waypoint Navigation and AprilTag Landing
 
 ## Overview
 
@@ -284,7 +278,7 @@ The goal is to design and implement a navigation and landing system for a simula
 
 ## Discussion
 
-## Results
+## Results -->
 
 # References
 
