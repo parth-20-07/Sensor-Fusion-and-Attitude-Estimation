@@ -8,6 +8,7 @@
   - [Code Structure](#code-structure)
   - [Discussion](#discussion)
   - [Results](#results)
+    - [Combined Results](#combined-results)
     - [Gyroscope-Based Orientation](#gyroscope-based-orientation)
     - [Accelerometer-Based Orientation](#accelerometer-based-orientation)
     - [Complementary Filter Orientation](#complementary-filter-orientation)
@@ -98,19 +99,19 @@ which gives us: -->
 
 $$
 \begin{equation}
-  \theta_{y} = \arcsin(-R(3,1))
+  \theta_{x} = \arctan(\frac{r_{32}}{r_{33}})
 \end{equation}
 $$
 
 $$
 \begin{equation}
-  \theta_{x} = \arccos(\frac{R(3,3)}{\cos{\theta_{y}}})
+  \theta_{y} = \arctan(\frac{-r_{31}}{\sqrt{r_{32}^2 + r_{33}^2}})
 \end{equation}
 $$
 
 $$
 \begin{equation}
-  \theta_{z} = \arcsin(\frac{R(1,1)}{\cos{\theta_{y}}})
+  \theta_{z} = \arctan(\frac{r_{21}}{r_{11}})
 \end{equation}
 $$
 
@@ -176,7 +177,7 @@ $$
 
 $$
 \begin{equation}
-  \theta_{z} = \arctan(\frac{a_{y}}{a_{x}})
+  \theta_{z} = \arctan(\frac{\sqrt{{a_{x}}^{2} + {a_{y}}^{2}}}{a_{z}})
 \end{equation}
 $$
 
@@ -207,138 +208,64 @@ The code is written in Python using a Python notebook. The Phase 1 implementatio
 
 ## Results
 
+### Combined Results
+
+![s1](./Results/Phase%201/Set%201/Combined%20Graph.png)
+
+![s2](./Results/Phase%201/Set%202/Combined%20Graph.png)
+
+![s3](./Results/Phase%201/Set%203/Combined%20Graph.png)
+
+![s4](./Results/Phase%201/Set%204/Combined%20Graph.png)
+
+![s5](./Results/Phase%201/Set%205/Combined%20Graph.png)
+
+![s6](./Results/Phase%201/Set%206/Combined%20Graph.png)
+
+
 ### Gyroscope-Based Orientation
 
-<!-- omit from toc -->
-#### Set 1
+![s1](./Results/Phase%201/Set%201/gyro.png)
 
-![s1-x](./Results/Phase%201/Set%201/gyro_theta_x.png)
-![s1-y](./Results/Phase%201/Set%201/gyro_theta_y.png)
-![s1-z](./Results/Phase%201/Set%201/gyro_theta_z.png)
+![s2](./Results/Phase%201/Set%202/gyro.png)
 
-<!-- omit from toc -->
-#### Set 2
+![s3](./Results/Phase%201/Set%203/gyro.png)
 
-![s2-x](./Results/Phase%201/Set%202/gyro_theta_x.png)
-![s2-y](./Results/Phase%201/Set%202/gyro_theta_y.png)
-![s2-z](./Results/Phase%201/Set%202/gyro_theta_z.png)
+![s4](./Results/Phase%201/Set%204/gyro.png)
 
-<!-- omit from toc -->
-#### Set 3
+![s5](./Results/Phase%201/Set%205/gyro.png)
 
-![s3-x](./Results/Phase%201/Set%203/gyro_theta_x.png)
-![s3-y](./Results/Phase%201/Set%203/gyro_theta_y.png)
-![s3-z](./Results/Phase%201/Set%203/gyro_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 4
-
-![s4-x](./Results/Phase%201/Set%204/gyro_theta_x.png)
-![s4-y](./Results/Phase%201/Set%204/gyro_theta_y.png)
-![s4-z](./Results/Phase%201/Set%204/gyro_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 5
-
-![s5-x](./Results/Phase%201/Set%205/gyro_theta_x.png)
-![s5-y](./Results/Phase%201/Set%205/gyro_theta_y.png)
-![s5-z](./Results/Phase%201/Set%205/gyro_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 6
-
-![s6-x](./Results/Phase%201/Set%206/gyro_theta_x.png)
-![s6-y](./Results/Phase%201/Set%206/gyro_theta_y.png)
-![s6-z](./Results/Phase%201/Set%206/gyro_theta_z.png)
+![s6](./Results/Phase%201/Set%206/gyro.png)
 
 ### Accelerometer-Based Orientation
 
-<!-- omit from toc -->
-#### Set 1
+![s1](./Results/Phase%201/Set%201/accel.png)
 
-![s1-x](./Results/Phase%201/Set%201/accel_theta_x.png)
-![s1-y](./Results/Phase%201/Set%201/accel_theta_y.png)
-![s1-z](./Results/Phase%201/Set%201/accel_theta_z.png)
+![s2](./Results/Phase%201/Set%202/accel.png)
 
-<!-- omit from toc -->
-#### Set 2
+![s3](./Results/Phase%201/Set%203/accel.png)
 
-![s2-x](./Results/Phase%201/Set%202/accel_theta_x.png)
-![s2-y](./Results/Phase%201/Set%202/accel_theta_y.png)
-![s2-z](./Results/Phase%201/Set%202/accel_theta_z.png)
+![s4](./Results/Phase%201/Set%204/accel.png)
 
-<!-- omit from toc -->
-#### Set 3
+![s5](./Results/Phase%201/Set%205/accel.png)
 
-![s3-x](./Results/Phase%201/Set%203/accel_theta_x.png)
-![s3-y](./Results/Phase%201/Set%203/accel_theta_y.png)
-![s3-z](./Results/Phase%201/Set%203/accel_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 4
-
-![s4-x](./Results/Phase%201/Set%204/accel_theta_x.png)
-![s4-y](./Results/Phase%201/Set%204/accel_theta_y.png)
-![s4-z](./Results/Phase%201/Set%204/accel_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 5
-
-![s5-x](./Results/Phase%201/Set%205/accel_theta_x.png)
-![s5-y](./Results/Phase%201/Set%205/accel_theta_y.png)
-![s5-z](./Results/Phase%201/Set%205/accel_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 6
-
-![s6-x](./Results/Phase%201/Set%206/accel_theta_x.png)
-![s6-y](./Results/Phase%201/Set%206/accel_theta_y.png)
-![s6-z](./Results/Phase%201/Set%206/accel_theta_z.png)
-
+![s6](./Results/Phase%201/Set%206/accel.png)
 
 ### Complementary Filter Orientation
 
-<!-- omit from toc -->
-#### Set 1
+![s1](./Results/Phase%201/Set%201/compli.png)
 
-![s1-x](./Results/Phase%201/Set%201/compli_theta_x.png)
-![s1-y](./Results/Phase%201/Set%201/compli_theta_y.png)
-![s1-z](./Results/Phase%201/Set%201/compli_theta_z.png)
+![s2](./Results/Phase%201/Set%202/compli.png)
 
-<!-- omit from toc -->
-#### Set 2
+![s3](./Results/Phase%201/Set%203/compli.png)
 
-![s2-x](./Results/Phase%201/Set%202/compli_theta_x.png)
-![s2-y](./Results/Phase%201/Set%202/compli_theta_y.png)
-![s2-z](./Results/Phase%201/Set%202/compli_theta_z.png)
+![s4](./Results/Phase%201/Set%204/compli.png)
 
-<!-- omit from toc -->
-#### Set 3
+![s5](./Results/Phase%201/Set%205/compli.png)
 
-![s3-x](./Results/Phase%201/Set%203/compli_theta_x.png)
-![s3-y](./Results/Phase%201/Set%203/compli_theta_y.png)
-![s3-z](./Results/Phase%201/Set%203/compli_theta_z.png)
+![s6](./Results/Phase%201/Set%206/compli.png)
 
-<!-- omit from toc -->
-#### Set 4
 
-![s4-x](./Results/Phase%201/Set%204/compli_theta_x.png)
-![s4-y](./Results/Phase%201/Set%204/compli_theta_y.png)
-![s4-z](./Results/Phase%201/Set%204/compli_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 5
-
-![s5-x](./Results/Phase%201/Set%205/compli_theta_x.png)
-![s5-y](./Results/Phase%201/Set%205/compli_theta_y.png)
-![s5-z](./Results/Phase%201/Set%205/compli_theta_z.png)
-
-<!-- omit from toc -->
-#### Set 6
-
-![s6-x](./Results/Phase%201/Set%206/compli_theta_x.png)
-![s6-y](./Results/Phase%201/Set%206/compli_theta_y.png)
-![s6-z](./Results/Phase%201/Set%206/compli_theta_z.png)
 
 # Phase 2 - Waypoint Navigation and AprilTag Landing
 
